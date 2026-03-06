@@ -11,6 +11,7 @@ const KNOWN_RULES = {
     auth_enabled: R_BOOL,
     auth_default_roles: R_ROLES,
     query_allow_slow: R_BOOL,
+    mwdb_url: R_URL,
 };
 
 class ConfigRow extends Component {

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Pagination from "replace-js-pagination";
 import FilterIcon from "../components/FilterIcon";
 import QueryMatchesItem from "./QueryMatchesItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import api, { api_url } from "../api";
+import { AppContext } from "../App";
+
 import {
     faCopy,
     faDownload,
@@ -68,6 +70,8 @@ const QueryMatches = (props) => {
 
     const [filters, setFilter] = useState([]);
 
+    const { config } = useContext(AppContext);
+
     const updateFilter = (name) => {
         if (!filters.includes(name)) {
             setFilter([...filters, name]);
@@ -88,6 +92,11 @@ const QueryMatches = (props) => {
             return null;
         })
         .map((match, index) => {
+            const display_url = config && config["mwdb_url"] ?
+                new URL(`/file/${match.meta.sha256.display_text}`, config["mwdb_url"])
+                :
+                undefined;
+
             const downloadUrl = new URL(
                 `${api_url}/download`,
                 document.baseURI
@@ -102,6 +111,7 @@ const QueryMatches = (props) => {
                 <QueryMatchesItem
                     key={match.file}
                     match={match}
+                    display_url={display_url}
                     download_url={downloadUrl.href}
                     filters={filters}
                     setFilter={setFilter}

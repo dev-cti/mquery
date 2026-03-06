@@ -1,10 +1,11 @@
 import React from "react";
 import path from "path-browserify";
 import ActionDownload from "../components/ActionDownload";
+import ActionMatchDisplay from "../components/ActionMatchDisplay";
 import ActionCopyToClipboard from "../components/ActionCopyToClipboard";
 
 const QueryMatchesItem = (props) => {
-    const { match, download_url } = props;
+    const { match, download_url, display_url } = props;
     const { matches, meta, file } = match;
 
     const fileBasename = path.basename(file);
@@ -38,7 +39,7 @@ const QueryMatchesItem = (props) => {
             <td>
                 <div className="d-flex">
                     <div className="text-truncate" style={{ minWidth: 50 }}>
-                        {meta.sha256.display_text}
+                        <ActionMatchDisplay text={meta.sha256.display_text} href={display_url} />
                     </div>
                     <small className="text-secondary">
                         <div className="btn-group " role="group">

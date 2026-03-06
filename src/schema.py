@@ -104,4 +104,5 @@ class ServerSchema(BaseModel):
     auth_enabled: Optional[str]
     openid_url: Optional[str]
     openid_client_id: Optional[str]
+    mwdb_url: Optional[str]
     about: str

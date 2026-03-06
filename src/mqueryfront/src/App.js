@@ -19,6 +19,8 @@ function getCurrentTokenOrNull() {
     }
 }
 
+export const AppContext = React.createContext(null);
+
 function App() {
     const [config, setConfig] = useState(null);
 
@@ -52,24 +54,26 @@ function App() {
 
     return (
         <div className="App">
-            <Navigation session={token} config={config} logout={logout} />
-            <Routes>
-                <Route exact path="/" element={<QueryPage />} />
-                <Route path="/query/:hash" element={<QueryPage />} />
-                <Route exact path="/recent" element={<RecentPage />} />
-                <Route exact path="/config" element={<ConfigPage />} />
-                <Route exact path="/status" element={<StatusPage />} />
-                <Route
-                    exact
-                    path="/about"
-                    element={<AboutPage config={config} />}
-                />
-                <Route
-                    exact
-                    path="/auth"
-                    element={<AuthPage config={config} login={login} />}
-                />
-            </Routes>
+            <AppContext.Provider value={{ config: config }}>
+                <Navigation session={token} config={config} logout={logout} />
+                <Routes>
+                    <Route exact path="/" element={<QueryPage />} />
+                    <Route path="/query/:hash" element={<QueryPage />} />
+                    <Route exact path="/recent" element={<RecentPage />} />
+                    <Route exact path="/config" element={<ConfigPage />} />
+                    <Route exact path="/status" element={<StatusPage />} />
+                    <Route
+                        exact
+                        path="/about"
+                        element={<AboutPage config={config} />}
+                    />
+                    <Route
+                        exact
+                        path="/auth"
+                        element={<AuthPage config={config} login={login} />}
+                    />
+                </Routes>
+            </AppContext.Provider>
         </div>
     );
 }

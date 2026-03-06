@@ -97,6 +97,9 @@ class UserModelConfig:
     def openid_secret(self) -> str | None:
         return self.db.get_mquery_config_key("openid_secret")
 
+    @property
+    def mwdb_url(self) -> str | None:
+        return self.db.get_mquery_config_key("mwdb_url")
 
 class Database:
     def __init__(self, redis_host: str, redis_port: int) -> None:
@@ -404,6 +407,8 @@ class Database:
             "openid_secret": "Secret used for JWT token verification",
             # Query and performance config
             "query_allow_slow": "Allow users to run queries that will end up scanning the whole malware collection",
+            # Link with Mwdb
+            "mwdb_url": "MalwareDB base url",
         }
 
     def get_config(self) -> List[ConfigSchema]:

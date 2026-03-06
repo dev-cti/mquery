@@ -580,6 +580,7 @@ def server() -> ServerSchema:
         auth_enabled=str(db.config.auth_enabled).lower(),
         openid_url=db.config.openid_url,
         openid_client_id=db.config.openid_client_id,
+        mwdb_url=db.config.mwdb_url,
         about=app_config.mquery.about,
     )
 
